@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '../../components/Button';
-
-interface ILoginFormData {
-    email: string;
-    password: string;
-}
+import { ILoginFormData } from '../../core/services/auth-service';
 
 export const Main = () => {
     const [formData, setFormData] = useState<ILoginFormData>({
