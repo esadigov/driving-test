@@ -6,7 +6,13 @@ module.exports = {
         'plugin:jest/recommended',
         'plugin:prettier/recommended',
     ],
-    plugins: ['react', 'import', '@typescript-eslint', 'jest'],
+    plugins: [
+        'react',
+        'import',
+        '@typescript-eslint',
+        'simple-import-sort',
+        'jest',
+    ],
     env: {
         browser: true,
         es6: true,
@@ -28,6 +34,8 @@ module.exports = {
     rules: {
         'linebreak-style': 'off',
         '@typescript-eslint/no-use-before-define': ['off'],
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error',
         'prettier/prettier': [
             'error',
             {
