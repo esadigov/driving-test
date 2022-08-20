@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-    color: palevioletred;
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    border-radius: 3px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 7px;
+    border: none;
+    padding: 0;
+    padding: 14px 79px;
+    outline: inherit;
+    background-color: #3086a9;
+    box-shadow: 0px 0px 5px rgba(48, 134, 169, 0.7);
     cursor: pointer;
 `;
