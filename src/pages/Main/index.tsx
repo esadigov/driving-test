@@ -1,38 +1,56 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-
-import { Button } from '../../components/Button';
-import { ILoginFormData } from '../../core/services/auth-service';
+import React, { useEffect, useState } from 'react';
+    import styled from 'styled-components';
+    import { Button } from '../../components/Button';
+import { getCurrentUser, ILoginFormData } from '../../core/services/auth-service';
+import testService from '../../core/services/auth-service/test.service';
+import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<ILoginFormData>({
         email: '',
         password: '',
     });
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const [user, setUser] = useState<{ user_email: string, user_id: string, access_token: string }>()
+
+    const handleClick = (e: any) => {
+        console.log('CURRENT USER', user);
+        navigate("/exam")
+        
+        // setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+
+    useEffect(() => {
+        // const user = getCurrentUser()
+        setUser(getCurrentUser())
+
+    }, [])
 
     return (
         <Container>
-            <LoginForm>
-                <Heading>LOGIN</Heading>
-                <Input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={onChange}
-                />
-                <Input
-                    type="text"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={onChange}
-                />
-                <Button>LOG IN</Button>
-            </LoginForm>
+            <div className="container">
+                <p>
+                    <strong>Token:</strong>{" "}
+                    {user?.access_token.substring(0, 20)} ...{" "}
+                    {user?.access_token.substr(user?.access_token.length - 20)}
+                </p>
+                <p>
+                    <strong>Id:</strong>{" "}
+                    {user?.user_id}
+                </p>
+                <p>
+                    <strong>Email:</strong>{" "}
+                    {user?.user_email}
+                </p>
+                {/* <strong>Authorities:</strong>
+                <ul>
+                    {user?.roles &&
+                        user?.roles.map((role, index) => <li key={index}>{role}</li>)}
+                </ul> */}
+            </div>
+            <Button onClick={handleClick} >START THE EXAM</Button>
         </Container>
     );
 };
@@ -42,7 +60,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #131a22;
+    // background-color: #131a22;
 `;
 
 const Heading = styled.h2`
