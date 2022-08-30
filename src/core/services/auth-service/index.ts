@@ -9,31 +9,28 @@ export interface ISignUpFormData {
     name: string;
     email: string;
     password: string;
+    cPassword?: string
 }
 
-export const login = (data: ILoginFormData) => {
-    // const creds: AxiosRequestConfig = axios.post('http://localhost:3000/auth/login', data);
-    // return creds?.data
-    return axios
-        .post('http://localhost:3000/auth/login', data)
-        .then(response => {
-            if (response.data.access_token) {
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
-            return response.data;
-        })
-        .catch(err => {
-            console.log("!!!ERROR WHILE LOG-IN!!!", err);
-        })
+export const login = async (data: ILoginFormData) => {
+    const creds: AxiosRequestConfig = {
+        method: 'POST',
+        url: 'http://localhost:3000/auth/login',
+        timeout: 20000,
+        data: data,
+    };
+
+    return (await axios(creds))?.data;
 }
-export const signup = (data: ISignUpFormData) => {
-    // const creds: AxiosRequestConfig = await axios.post('http://localhost:3000/auth/signup', data);
-    // return creds?.data
-    return axios
-        .post('http://localhost:3000/auth/signup', data)
-        .catch(err => {
-            console.log("!!!ERROR WHILE SIGN-UP!!!", err);
-        })
+export const signup = async (data: ISignUpFormData) => {
+    const creds: AxiosRequestConfig = {
+        method: 'POST',
+        url: 'http://localhost:3000/auth/signup',
+        timeout: 20000,
+        data: data,
+    };
+
+    return (await axios(creds))?.data;
 }
 
 export const logout = () => {
